@@ -1,0 +1,30 @@
+version: 2.1
+
+executors:
+  python-executor:
+    docker:
+      - image: cimg/python:3.12
+    environment:
+      POETRY_VIRTUALENVS_IN_PROJECT: true
+
+jobs:
+  run-stock-bot:
+    executor: python-executor
+    steps:
+      - checkout
+      - run:
+          name: Install Poetry
+          command: curl -sSL https://install.python-poetry.org | python3 -
+      - run:
+          name: Install Dependencies
+          command: poetry install --no-interaction --no-root
+      - run:
+          name: Run Prediction Script
+          # This command actually updates your database!
+          command: poetry run python -m src.main
+
+workflows:
+  version: 2
+  daily-schedule:
+    jobs:
+      - run-stock-bot
