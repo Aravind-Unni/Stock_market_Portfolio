@@ -197,7 +197,7 @@ def run_dashboard() -> None:
     # Precompute prediction performance dataframe for all tickers
     perf_df = compute_prediction_performance(df.to_json(orient="records", date_format="iso"))
 
-    st.subheader("Portfolio Weights DEMO")
+    st.subheader("Portfolio Weights")
     weight_col, table_col = st.columns([1, 1])
     with weight_col:
         pie = pie_chart(date_df)
