@@ -59,4 +59,12 @@ $$\text{Sharpe Ratio} = \frac{E(R_p) - R_f}{\sigma_p}$$
 ## 🚀 Local Setup & Installation
 
 To run this project locally, ensure you have Python 3.12 and Poetry installed.
+**2. Install dependencies via Poetry**
+```bash
+poetry install
+
+SUPABASE_URL="your_supabase_url"
+SUPABASE_KEY="your_supabase_key"
+
+poetry run streamlit run src/streamlit_app.py
 
