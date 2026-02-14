@@ -2,10 +2,19 @@
 
 from __future__ import annotations
 
+import sys
+import os
+
+# --- NEW: Tell Python where to find the 'src' folder ---
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# -------------------------------------------------------
+
 import json
 from datetime import date
 from functools import lru_cache
+from io import StringIO
 
+from dotenv import load_dotenv
 import altair as alt
 import pandas as pd
 import plotly.express as px
