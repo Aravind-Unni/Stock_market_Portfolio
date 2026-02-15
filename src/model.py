@@ -153,11 +153,21 @@ class ProphetModel:
 
         self.fit(price_series)
 
-        # Get the last date from the series
+
         last_date = price_series.index[-1]
 
-        # Create future dataframe with next day
-        future = pd.DataFrame({"ds": pd.date_range(start=last_date, periods=2, freq="B")[1:]})
+        # Use the NYSE calendar to find the true next trading day (skips weekends AND holidays)
+        nyse = mcal.get_calendar("XNYS")
+        
+        # Look ahead 10 days to safely ensure we find the next open day
+        schedule = nyse.schedule(start_date=last_date, end_date=last_date + pd.Timedelta(days=10))
+        valid_trading_days = schedule.index.tz_localize(None) # Match Prophet's naive timestamps
+        
+        # Filter for dates strictly after our last known data point
+        future_dates = valid_trading_days[valid_trading_days > last_date]
+        
+        # Create future dataframe with the very next valid trading day
+        future = pd.DataFrame({"ds": [future_dates[0]]})
 
         # Make prediction
         if self.model is None:
