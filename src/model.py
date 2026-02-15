@@ -157,7 +157,7 @@ class ProphetModel:
         last_date = price_series.index[-1]
 
         # Create future dataframe with next day
-        future = pd.DataFrame({"ds": pd.date_range(start=last_date, periods=2, freq="D")[1:]})
+        future = pd.DataFrame({"ds": pd.date_range(start=last_date, periods=2, freq="B")[1:]})
 
         # Make prediction
         if self.model is None:
