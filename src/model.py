@@ -154,7 +154,7 @@ class ProphetModel:
         self.fit(price_series)
 
 
-        last_date = price_series.index[-1]
+        last_date = pd.to_datetime(price_series.index[-1])
 
         # Use the NYSE calendar to find the true next trading day (skips weekends AND holidays)
         nyse = mcal.get_calendar("XNYS")
